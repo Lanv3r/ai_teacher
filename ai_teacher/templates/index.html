@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+  <div class="card">
+    <h3>Add Task</h3>
+    <form method="post" action="/add-task">
+      <div>
+        <label>Name</label><br>
+        <input name="name" placeholder="e.g., Read Chapter 1" required />
+      </div>
+      <div>
+        <label>Subject</label><br>
+        <input name="subject" placeholder="e.g., Math" />
+      </div>
+      <div>
+        <label>Estimated Time (minutes)</label><br>
+        <input type="number" name="minutes" min="15" step="5" required />
+      </div>
+      <div>
+        <label>Deadline (YYYY-MM-DD)</label><br>
+        <input name="deadline" type="date" required />
+      </div>
+      <div style="margin-top:10px;">
+        <button class="btn" type="submit">Add Task</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>Study Preferences</h3>
+    <form method="post" action="/save-preferences">
+      <div class="row">
+        <div>
+          <label>Work block (min)</label><br>
+          <input type="number" name="work_block_minutes" value="{{ prefs.work_block_minutes }}" min="15" step="5" />
+        </div>
+        <div>
+          <label>Short break (min)</label><br>
+          <input type="number" name="short_break_minutes" value="{{ prefs.short_break_minutes }}" min="0" step="5" />
+        </div>
+        <div>
+          <label>Long break every (blocks)</label><br>
+          <input type="number" name="long_break_every_blocks" value="{{ prefs.long_break_every_blocks }}" min="0" />
+        </div>
+        <div>
+          <label>Long break (min)</label><br>
+          <input type="number" name="long_break_minutes" value="{{ prefs.long_break_minutes }}" min="0" step="5" />
+        </div>
+      </div>
+
+      <h4>Study Windows</h4>
+      <p class="muted">Set time windows for each day you are comfortable studying.</p>
+      <table>
+        <thead>
+          <tr><th>Day</th><th>Start</th><th>End</th></tr>
+        </thead>
+        <tbody>
+          {% for wd in range(7) %}
+          <tr>
+            <td>{{ ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][wd] }}</td>
+            {% set win = None %}
+            {% for w in prefs.study_windows %}
+              {% if w.weekday == wd %}
+                {% set win = w %}
+              {% endif %}
+            {% endfor %}
+            <td><input type="time" name="start_{{ wd }}" value="{{ win.start if win else '' }}" /></td>
+            <td><input type="time" name="end_{{ wd }}" value="{{ win.end if win else '' }}" /></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div style="margin-top:10px;">
+        <button class="btn" type="submit">Save Preferences</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card" style="margin-top:20px;">
+  <h3>Tasks</h3>
+  {% if tasks %}
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Subject</th><th>Minutes</th><th>Deadline</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for t in tasks %}
+      <tr>
+        <td>{{ t.name }}</td>
+        <td>{{ t.subject }}</td>
+        <td>{{ t.minutes }}</td>
+        <td>{{ t.deadline }}</td>
+        <td><a class="btn btn-danger" href="/delete-task/{{ t.id }}">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div style="margin-top:10px;">
+    <a class="btn btn-secondary" href="/schedule">Generate Schedule</a>
+  </div>
+  {% else %}
+  <p class="muted">No tasks yet. Add some above.</p>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+
