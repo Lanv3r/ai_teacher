@@ -1,8 +1,7 @@
 # AI Teacher (Stage 1)
 
-A personal study assistant built in Python.
-- Summarizes notes
-- Generates flashcards
-- Spaced-repetition scheduler
+A personal study scheduler.
+- Add tasks
+- Choose time management techniques
+- Generates schedule
 
-## Quick start
