@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="row">
-  <div class="card">
+  <div class="card" id="add-task-window">
     <h3>Add Task</h3>
     <form method="post" action="/add-task" style="max-width: 400px;">
       <div style="display: flex; gap: 8px;">
@@ -30,17 +30,17 @@
     </form>
   </div>
 
-  <div class="card">
+  <div class="card" id="study-window">
     <h3>Popular Study & Time-Management Techniques</h3>
     <form method="post" action="/save-preferences">
       <div class="row">
         <div>
           <label>Pomodoro Technique</label><br>
-          <img class="option" src="{{ url_for('static', filename='img/pomodoro.png') }}" alt="Pomodoro">
+          <img class="img-option" src="{{ url_for('static', filename='img/pomodoro.png') }}" alt="Pomodoro">
         </div>
         <div>
           <label>90/20 Rule</label><br>
-          <img class="option" src="{{ url_for('static', filename='img/flow_state.png') }}" alt="90/20 Rule">
+          <img class="img-option" src="{{ url_for('static', filename='img/flow_state.png') }}" alt="90/20 Rule">
         </div>
       </div>
       <div class="row">
@@ -122,7 +122,7 @@
   })();
   </script>
 
-<div class="card" style="margin-top:20px;">
+<div class="card" id="tasks-window" style="margin-top:20px;">
   <h3>Tasks</h3>
   {% if tasks %}
   <table>
