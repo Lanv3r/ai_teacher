@@ -4,21 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Smart Study Scheduler</title>
-    <style>
-      body { font-family: -apple-system, system-ui, sans-serif; margin: 20px; }
-      header { margin-bottom: 20px; }
-      nav a { margin-right: 12px; }
-      input, select { padding: 6px; }
-      table { border-collapse: collapse; width: 100%; }
-      th, td { border: 1px solid #ddd; padding: 8px; }
-      th { background: #f7f7f7; }
-      .row { display: flex; gap: 20px; }
-      .card { border: 1px solid #eee; padding: 12px; border-radius: 8px; flex: 1; }
-      .btn { padding: 8px 12px; background: #0d6efd; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
-      .btn-danger { background: #dc3545; }
-      .btn-secondary { background: #6c757d; }
-      .muted { color: #777; }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}"/>
   </head>
   <body>
     <header>

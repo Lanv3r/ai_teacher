@@ -24,7 +24,6 @@ from typing import List, Dict
 class Task:
     id: str
     name: str
-    subject: str
     minutes: int
     deadline: date
 
@@ -60,7 +59,6 @@ def schedule_tasks(tasks: List[Dict], preferences: Dict, start_from: date | None
             Task(
                 id=str(t["id"]),
                 name=t["name"].strip(),
-                subject=t.get("subject", "General").strip() or "General",
                 minutes=int(t["minutes"]),
                 deadline=datetime.strptime(t["deadline"], "%Y-%m-%d").date(),
             )
@@ -140,7 +138,6 @@ def schedule_tasks(tasks: List[Dict], preferences: Dict, start_from: date | None
                         "end": end_time.strftime("%H:%M"),
                         "task_id": next_task.id,
                         "task_name": next_task.name,
-                        "subject": next_task.subject,
                         "minutes": work_minutes,
                     }
                 )

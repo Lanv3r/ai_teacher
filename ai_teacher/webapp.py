@@ -22,15 +22,22 @@ def create_app() -> Flask:
         tasks = data["tasks"]
 
         name = request.form.get("name", "").strip()
-        subject = request.form.get("subject", "General").strip() or "General"
-        minutes = int(request.form.get("minutes", 0) or 0)
+        time_value = int(request.form.get("time_amount", 0) or 0)
+        time_unit = request.form.get("time_unit", "minutes")
+        # convert to minutes
+        if time_unit == "hours":
+            minutes = time_value * 60
+        elif time_unit == "days":
+            minutes = time_value * 24 * 60
+        else:  # minutes
+            minutes = time_value
+
         deadline = request.form.get("deadline") or date.today().isoformat()
 
         if name and minutes > 0:
             tasks.append({
                 "id": str(uuid.uuid4()),
                 "name": name,
-                "subject": subject,
                 "minutes": minutes,
                 "deadline": deadline,
             })
